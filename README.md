@@ -8,5 +8,5 @@ En los procedimientos se hace referencia a la base de datos BD06.
 Es necesario crear una base de datos vacía con ese nombre, ya que en alguno de los ejemplos se crean tablas y usamos lenguaje DML en ellas.
 ##Comentarios
 poco a poco iré subiendo los distintos ejemplos que iré haciendo en clases.
-###Creado por
+##Creado por
 Pepe Lluyot
