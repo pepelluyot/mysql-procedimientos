@@ -27,8 +27,8 @@ Insertamos los valores correctamente.
 	else -- la tabla existe
 		insert into aux_partido (nombreEquipoLocal, nombreEquipoVisitante, fecEncuentro, goles_local, goles_visitante)
 		select nombreEquipoLocal,nombreEquipoVisitante,fecEncuentro, 
-        left(resultado,1) as 'goles_local',
-		right(resultado,1) as 'goles_visitante' 
+        left(resultado, locate ('-',resultado)-1)  as 'goles_local',
+		right(resultado,length(resultado) - locate ('-',resultado)) as 'goles_visitante' 
         from partido;
     end if;
 end$$
@@ -36,7 +36,14 @@ delimiter ;
 
 call cargar_datos_aux_partido();
 
- /*  select left('2-3',1);
+ /*  
+ 
+ select locate ('-','12-2');
+select left('12-2', locate ('-','12-2')-1);
+select right('12-2',length('12-2') - locate ('-','12-2'));
+ 
+ 
+ select left('2-3',1);
     select nombreEquipoLocal,nombreEquipoVisitante,fecEncuentro, left(resultado,1) as 'goles_local',
     right(resultado,1) as 'goles_visitante' from partido;
    

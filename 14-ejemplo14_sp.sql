@@ -1,7 +1,12 @@
 /* manejo de errores */
 /* ejemplo con CONTINUE EXIT */
+CREATE TABLE `BD06grupoB`.`articulos` (
+  `idArticulo` INT NOT NULL,
+  `articulo` VARCHAR(45) NOT NULL,
+  `precio` DECIMAL(6,2) NULL DEFAULT 0,
+  PRIMARY KEY (`idArticulo`));
 
-use BD06;
+
 drop procedure if exists ejemplo14;
 delimiter $$
 create procedure ejemplo14(IN _num int)

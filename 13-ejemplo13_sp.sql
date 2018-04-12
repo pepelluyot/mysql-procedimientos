@@ -34,3 +34,32 @@ delimiter ;
 
 call ejemplo13('pepe','1234');
 call ejemplo13('pepe','2234');
+
+-- otra forma
+use BD06grupoB;
+drop procedure if exists actualizar_datos_usuario;
+delimiter $$
+create procedure actualizar_datos_usuario(_user varchar(15))
+begin
+	-- comprobamos si el usuario existe.
+    if (select count(*) from usuarios where usuario = _user)>0 then
+    -- si existe
+		-- compronbamos si existe ne la tabla datos.personales
+        if (select count(*) from datos_personales where usuario = _user)>0 then
+			-- si existe en esa tabla actualizamos los datos
+            UPDATE datos_personales 
+				set ultimo_login = current_timestamp(),
+					num_accesos = ifnull(num_accesos,0) + 1
+				where usuario = _user;
+            -- si no , insertamos un nuevo registro.
+            else
+				INSERT INTO datos_personales (usuario, num_accesos, ultimo_login)
+                values (_user, 1, current_timestamp());
+		end if;
+	end if;
+end $$
+delimiter ;
+
+call actualizar_datos_usuario('manuela');
+
+
