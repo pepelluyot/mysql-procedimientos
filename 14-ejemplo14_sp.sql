@@ -1,3 +1,5 @@
+/*Crear un procedimiento (​ ejemplo14_sp.sql​ ) que pasándole un número, inserte en la tabla de artículos el artículo con clave el número p, controlar los errores de clave duplicada y error al insertar null como clave.*/
+
 /* manejo de errores */
 /* ejemplo con CONTINUE EXIT */
 CREATE TABLE `BD06grupoB`.`articulos` (
@@ -7,20 +9,19 @@ CREATE TABLE `BD06grupoB`.`articulos` (
   PRIMARY KEY (`idArticulo`));
 
 
-drop procedure if exists ejemplo14;
+drop procedure if exists ejemplo14_sp;
 delimiter $$
-create procedure ejemplo14(IN _num int)
-MODIFIES SQL DATA
+create procedure ejemplo14_sp(IN _num int)
 begin
 		insert into articulos values(_num, concat('articulo',_num),100);
 end $$
 delimiter ;
-call ejemplo14(2);
+call ejemplo14_sp(2);
 
 /* lo controlamos con errores */
-drop procedure if exists ejemplo14;
+drop procedure if exists ejemplo14_sp2;
 delimiter $$
-create procedure ejemplo14(IN _num int)
+create procedure ejemplo14_sp2(IN _num int)
 MODIFIES SQL DATA
 begin
 	DECLARE CONTINUE HANDLER FOR 1062
@@ -29,12 +30,12 @@ begin
 		insert into articulos values(_num, concat('articulo',_num),100);
 end $$
 delimiter ;
-call ejemplo14(2);
-call ejemplo14(NULL);
+call ejemplo14_sp2(2);
+call ejemplo14_sp2(NULL);
 
-drop procedure if exists ejemplo14;
+drop procedure if exists ejemplo14_sp3;
 delimiter $$
-create procedure ejemplo14(IN _num int)
+create procedure ejemplo14_sp3(IN _num int)
 MODIFIES SQL DATA
 begin
 	DECLARE CONTINUE HANDLER FOR 1062
@@ -45,7 +46,7 @@ begin
 		insert into articulos values(_num, concat('articulo',_num),100);
 end $$
 delimiter ;
-call ejemplo14(NULL);
+call ejemplo14_sp3(NULL);
 
 -- podriamos haber puesto 
 /*DECLARE CONTINUE o EXIT HANDLER FOR SQLEXCEPTION 

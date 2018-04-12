@@ -1,12 +1,14 @@
-/* hacer un procedimiento de forma que cuando un usuario se autentifique,
-actualice la tabla datos_personales (aumente el numero de acceso y almacene la fecha)
-. MOstrar los datos de la tabla datos personales para ese usuario*/
-use BD06;
-drop procedure if exists ejemplo13;
+/*Hacer un procedimiento (​ ejemplo13_sp.sql​ ) de forma que cuando un usuario se
+autentifique (comprobar que el usuario existe), actualice la tabla datos_personales (aumente el número de acceso y almacene la fecha actual).
+Nota: Si el usuario existe y es la primera vez que se autentifica, hay que incluirlo en la tabla datos_personales.
+Mostrar los datos de la tabla datos personales para ese usuario
+*/
+
+drop procedure if exists ejemplo13_sp;
 delimiter $$
-create procedure ejemplo13(_user varchar(15), _passwd varchar(15))
+create procedure ejemplo13_sp(_user varchar(15), _passwd varchar(15))
 begin
-	-- comprobamos si el usuario existe con esa contraseña.
+    -- comprobamos si el usuario existe con esa contraseña.
     -- devolvemos en la variable estos tres posibles valores
     -- usuario no existe
     -- password incorrecto
@@ -32,14 +34,14 @@ begin
 end $$
 delimiter ;
 
-call ejemplo13('pepe','1234');
-call ejemplo13('pepe','2234');
+call ejemplo13_sp('pepe','1234');
+call ejemplo13_sp('pepe','2234');
 
 -- otra forma
-use BD06grupoB;
-drop procedure if exists actualizar_datos_usuario;
+
+drop procedure if exists ejemplo13_sp2;
 delimiter $$
-create procedure actualizar_datos_usuario(_user varchar(15))
+create procedure ejemplo13_sp2(_user varchar(15))
 begin
 	-- comprobamos si el usuario existe.
     if (select count(*) from usuarios where usuario = _user)>0 then
@@ -60,6 +62,6 @@ begin
 end $$
 delimiter ;
 
-call actualizar_datos_usuario('manuela');
+call ejemplo13_sp2('manuela');
 
 

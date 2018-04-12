@@ -1,8 +1,10 @@
+/* 
+Crea un procedimiento (​ ejemplo12_sp.sql​ ) que borre si existe la tabla artículos. Si no existe debe crearla e insertar 10 artículos haciendo uso de un buce WHILE...DO*/
 use BD06;
-drop procedure if exists ejemplo12;
+drop procedure if exists ejemplo12_sp;
 
 delimiter $$
-create procedure ejemplo12()
+create procedure ejemplo12_sp()
 begin
 	declare i tinyint unsigned default 1;
 	-- creamos una tabla nueva e insertamos algunos articulos
@@ -20,4 +22,4 @@ begin
 end $$
 delimiter ;
 
-call ejemplo12();
+call ejemplo12_sp();

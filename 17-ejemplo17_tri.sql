@@ -1,14 +1,15 @@
-use BD06;
+/*Crea una tabla sistema que almacene el número total de usuarios actuales y la fecha de la última actualización (último usuario, modificado o borrado).
+Crear un disparador (​ ejemplo17_trig.sql​ ) sobre la tabla usuarios de forma que cuando se cree un usuario nuevo, actualice dicha tabla.*/
 drop table if exists sistema;
 create table sistema (
 	num_usuarios INT UNSIGNED default 0,
     fecha timestamp
     );
     
-drop trigger if exists ejemplo17;
+drop trigger if exists ejemplo17_trig;
 
 delimiter %%
-create trigger ejemplo17
+create trigger ejemplo17_trig
 	AFTER INSERT ON usuarios
     FOR EACH ROW
 BEGIN
