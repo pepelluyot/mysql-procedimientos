@@ -2,7 +2,7 @@
 /* ejemplo de funciones */
 drop function if exists ejemplo15_fun;
 delimiter //
-create function ejemplo15 (_euros DECIMAL(10,2)) 
+create function ejemplo15_fun (_euros DECIMAL(10,2)) 
 RETURNS decimal(20,3)
 begin
 	-- cuerpo de la funcion 
