@@ -1,4 +1,4 @@
-/*Crea una función (​ ejemplo16_fun.sql​ ) de forma que pasandole un usuario nos devuelva su edad actual (debe comprobar su fecha de nacimiento en el caso de existir y calcular su edad actual).
+/*Crea una función (​ ejemplo17_fun.sql​ ) de forma que pasandole un usuario nos devuelva su edad actual (debe comprobar su fecha de nacimiento en el caso de existir y calcular su edad actual).
 */
 /* ejemplo de funciones */
 drop function if exists ejemplo16_fun; -- no podemos usar in out inout, sino return
