@@ -5,6 +5,7 @@ drop function if exists ejemplo16_fun; -- no podemos usar in out inout, sino ret
 delimiter //
 create function ejemplo16_fun (_user varchar(15))
 	returns int
+    DETERMINISTIC
 begin
 	declare _edad int;
     declare _fecha_nacimiento date;
