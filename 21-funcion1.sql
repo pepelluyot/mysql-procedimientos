@@ -13,7 +13,7 @@ begin
 -- return -1;
 	
     -- comprobamos si el equipo existe
-    set _miequipo := (select nombre from equipo where nombre = _equipo);
+    set _miequipo = (select nombre from equipo where nombre = _equipo);
     if _miequipo IS NULL then
 		 return -1;
         -- set mierror = -1;
@@ -21,11 +21,7 @@ begin
     -- hacemos uso de la tabla auxiliar
     end if;
     
-  /*  select goles_local, goles_visitante, if(goles_local > goles_visitante,3,
-    if(goles_local = goles_visitante,1,0)) from aux_partido
-    where nombreEquipoLocal = _equipo; -- or nombreEquipoVisitante=_equipo
-	*/
-	
+ 
 	set puntos = (	select sum(if(goles_local > goles_visitante,3,
 					if(goles_local = goles_visitante,1,0))) from aux_partido
 		where nombreEquipoLocal = _equipo );

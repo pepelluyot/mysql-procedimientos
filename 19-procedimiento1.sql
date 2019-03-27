@@ -1,5 +1,6 @@
 use torneofutbol;
 delimiter $$
+drop procedure if exists crear_tabla_aux_partido $$
 create procedure crear_tabla_aux_partido()
 begin
 	drop table if exists aux_partido;
@@ -12,6 +13,7 @@ begin
     drop column resultado;
     
 end$$
+
 delimiter ;
 
-call crear_tabla_aux_partido();
+call crear_tabla_aux_partido2();

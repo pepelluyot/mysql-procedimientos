@@ -15,8 +15,12 @@ begin
     select count(*) into total_jugadores
 		from jugador where equipo_nombre = new.equipo_nombre;
 	-- lo insertamos en la tabla logs_equipos. SI la tabla no existiera daría un error, que lo controlamos
+    
+    -- deberíamos comprobar si el registro existe para actualizarlo, si no existe lo insertamod, pero
+    -- por hacerlo más fácil siempre lo vamos a insertar
     insert into logs_equipos 
 		values ( current_timestamp(), 'insertar', new.equipo_nombre, total_jugadores);
+	
 end%%
 
 

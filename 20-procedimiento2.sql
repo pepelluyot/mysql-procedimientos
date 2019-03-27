@@ -24,13 +24,14 @@ Insertamos los valores correctamente.
     
     if v_existe_tabla = 0 then
 		call crear_tabla_aux_partido(); -- creamos la nueva tabla
-	else -- la tabla existe
-		insert into aux_partido (nombreEquipoLocal, nombreEquipoVisitante, fecEncuentro, goles_local, goles_visitante)
-		select nombreEquipoLocal,nombreEquipoVisitante,fecEncuentro, 
-        left(resultado, locate ('-',resultado)-1)  as 'goles_local',
-		right(resultado,length(resultado) - locate ('-',resultado)) as 'goles_visitante' 
-        from partido;
-    end if;
+	end if;
+	-- la tabla existe
+	insert into aux_partido (nombreEquipoLocal, nombreEquipoVisitante, fecEncuentro, goles_local, goles_visitante)
+	select nombreEquipoLocal,nombreEquipoVisitante,fecEncuentro, 
+	left(resultado, locate ('-',resultado)-1)  as 'goles_local',
+	right(resultado,length(resultado) - locate ('-',resultado)) as 'goles_visitante' 
+	from partido;
+
 end$$
 delimiter ;
 
