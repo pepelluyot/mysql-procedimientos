@@ -33,13 +33,12 @@ CREATE TABLE `usuarios` (
   create function eliminar_acentos(_texto varchar(100))
   returns varchar(100)
   begin
-	-- verificamos que los 8 primeros dígitos son números y el último una letraz
     declare v_texto varchar(100) default NULL;
     set v_texto = replace(_texto,'á','a');
     set v_texto = replace(v_texto,'é','e');
     set v_texto = replace(v_texto,'í','i');
     set v_texto = replace(v_texto,'ó','o');
-	set v_texto = replace(v_texto,'ú','u');
+    set v_texto = replace(v_texto,'ú','u');
     set v_texto = replace(v_texto,'ñ','n');
     
     return v_texto ;
@@ -49,7 +48,7 @@ CREATE TABLE `usuarios` (
   before insert on usuarios 
   for each row
   begin
-	declare v_mensaje varchar(50) default NULL;
+    declare v_mensaje varchar(50) default NULL;
     declare v_usuario char(100) default NULL;
     /* comprobamos el dni*/
 	if comprobar_dni(new.dni)=FALSE then
