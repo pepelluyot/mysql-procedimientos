@@ -1,4 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `torneofutbol` /*!40100 DEFAULT CHARACTER SET utf8 */;
+drop database if exists torneofutbol;
+CREATE DATABASE  `torneofutbol` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `torneofutbol`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
 --
