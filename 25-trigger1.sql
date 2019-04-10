@@ -18,6 +18,10 @@ begin
     
     -- deberíamos comprobar si el registro existe para actualizarlo, si no existe lo insertamod, pero
     -- por hacerlo más fácil siempre lo vamos a insertar
+    
+    -- creamos la tabla temporal si no existe.
+    call crear_tabla_logs_equipos(v_error);
+    
     insert into logs_equipos 
 		values ( current_timestamp(), 'insertar', new.equipo_nombre, total_jugadores);
 	
