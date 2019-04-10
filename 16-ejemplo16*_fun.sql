@@ -4,6 +4,7 @@ drop function if exists ejemplo15_fun;
 delimiter //
 create function ejemplo15_fun (_euros DECIMAL(10,2)) 
 RETURNS decimal(20,3)
+deterministic
 begin
 	-- cuerpo de la funcion 
 	declare _pesetas DECIMAL (20,3) ;

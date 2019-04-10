@@ -24,39 +24,42 @@ drop procedure if exists  actualizar_calificacion$$
 
 create procedure actualizar_calificacion()
 begin
-	declare continue handler for 1146
+	declare continue handler for SQLEXCEPTION
 	BEGIN
+		drop table if exists calificacion;	
 		create table calificacion (
 			posicion INT auto_increment primary key,
 			equipo varchar(15),
 			puntos decimal(3,0) default 0,
---            goles_favor decimal(3,0) default 0,
-  --          goles_contra decimal(3,0) default 0,
+            goles_favor decimal(3,0) default 0,
+            goles_contra decimal(3,0) default 0,
             PJ decimal (2,0) default 0,
             PG decimal (2,0) default 0,
             PE decimal (2,0) default 0,
             PP decimal (2,0) default 0)
 		;
 	END;
+    	
+    
     truncate calificacion;
     
     insert into calificacion (	posicion,
 			equipo ,
 			puntos ,
-     --       goles_favor ,
-     --       goles_contra,
+            goles_favor ,
+            goles_contra,
             PJ,
             PG,
             PE,
             PP
 		)
-    select 0, nombre, obtener_puntuacion(nombre), obtener_partidos('PJ',nombre),
+    select 0, nombre, obtener_puntuacion(nombre), obtener_partidos('GF',nombre), obtener_partidos('GC',nombre),obtener_partidos('PJ',nombre),
     obtener_partidos('PG',nombre), obtener_partidos('PE',nombre), obtener_partidos('PP',nombre)from equipo
     order by 3 desc;    
 end$$
 
 drop function if exists obtener_partidos $$
-create function obtener_partidos(tipo enum('PJ','PG','PE','PP'),_equipo char(15))
+create function obtener_partidos(tipo enum('PJ','PG','PE','PP','GF','GC'),_equipo char(15))
 returns decimal (3,0)
 READs sql data
 begin
@@ -78,10 +81,20 @@ begin
 			select count(*) into resultado from aux_partido 
 					where (nombreEquipoLocal=_equipo and goles_local < goles_visitante) or
                     (nombreEquipoVisitante=_equipo and goles_local > goles_visitante);        
-        
+        when 'GF' then 
+			select sum(goles_local) into resultado from aux_partido 
+					where nombreEquipoLocal=_equipo and goles_local is not null;
+			set resultado  = resultado  + (select sum(goles_visitante) from aux_partido 
+					where nombreEquipoVisitante=_equipo and goles_visitante is not null);        
+        when 'GC' then 
+			select sum(goles_visitante) into resultado from aux_partido 
+					where nombreEquipoLocal=_equipo and goles_visitante is not null;
+			set resultado  = resultado  + (select sum(goles_local) from aux_partido 
+					where nombreEquipoVisitante=_equipo and goles_local is not null);
 	end case;
     return resultado;
 end $$
+
 
 delimiter ;
 
