@@ -3,7 +3,7 @@ Devolvemos en la variable de saida estos tres posibles valores: usuario no exist
 use BD06;
 drop procedure if exists ejemplo10_sp;
 delimiter $$
-create procedure ejemplo10_sp(_user varchar(15), _passwd varchar(15), out _mensaje varchar(20))
+create procedure ejemplo10_sp(_user varchar(15), _passwd varchar(50), out _mensaje varchar(20))
 begin
 	-- comprobamos si el usuario existe con esa contraseña.
     -- devolvemos en la variable estos tres posibles valores
@@ -12,7 +12,7 @@ begin
     -- usuario correcto
     declare num int default 0;
     
-    select count(*) into num from usuarios where usuario = _user and passwd= _passwd;
+    select count(*) into num from usuarios where usuario = _user and passwd= SHA2(_password, 256);
     if num = 0 then
 		select count(*) into num from usuarios where usuario = _user;
 		if num = 0 then
