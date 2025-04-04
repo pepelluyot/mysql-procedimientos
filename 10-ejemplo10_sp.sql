@@ -1,6 +1,7 @@
 /*Crea un procedimiento (​ ejemplo10_sp.sql​ ) con dos parámetros de entrada (usuario y contraseña) y uno de salida (mensaje) Hacer uso de IF, ELSE para comprobar si un usuario pasado por parámetros existe en la base de datos con esa contraseña.
 Devolvemos en la variable de saida estos tres posibles valores: usuario no existe, password incorrecto o usuario correcto*/
 use BD06;
+-- eliminamos el procedimiento si existe
 drop procedure if exists ejemplo10_sp;
 delimiter $$
 create procedure ejemplo10_sp(_user varchar(15), _passwd varchar(50), out _mensaje varchar(20))
