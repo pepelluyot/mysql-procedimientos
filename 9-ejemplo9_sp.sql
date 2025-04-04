@@ -18,25 +18,23 @@ VALUES ('pepe', SHA2('1234', 256)),
 drop procedure if exists ejemplo9_sp;
 delimiter $$
 CREATE PROCEDURE ejemplo9_sp(
-    IN _usuario VARCHAR(50),
-    IN _password VARCHAR(100)
+    IN _usuario VARCHAR(50)
 )
 BEGIN
     DECLARE num INT DEFAULT 0;
 
     SELECT COUNT(*) INTO num
     FROM usuarios
-    WHERE usuario = _usuario
-      AND password = SHA2(_password, 256);
+    WHERE usuario = _usuario;
 
     IF num = 1 THEN
-        SELECT '✅ Login correcto' AS Mensaje;
+        SELECT '✅ Usuario existente' AS Mensaje;
     ELSE
-        SELECT '❌ Usuario o contraseña incorrectos' AS Mensaje;
+        SELECT '❌ Usuario incorrecto' AS Mensaje;
     END IF;
 END $$
 delimiter ;
 
-CALL ejemplo9_sp('pepe', '1234');     -- ✅
-CALL ejemplo9_sp('pepe', 'contramal'); -- ❌
-CALL ejemplo9_sp('ana', 'hola123');   -- ✅
+CALL ejemplo9_sp('pepe');     -- ✅
+CALL ejemplo9_sp('ana');   -- ✅
+CALL ejemplo9_sp('juan');   -- ❌
